@@ -268,19 +268,19 @@ if __name__ == "__main__":
 
 
         pos_hov = p.circle(eachdate, positive_perc, size=20,
-                        fill_color="grey", hover_fill_color="black",
+                        fill_color="grey", hover_fill_color="#6fef47",
                         fill_alpha=0.05, hover_alpha=0.3,
                         line_color=None, hover_line_color="white")
 
 
 
         neg_hov = p.circle(eachdate, negative_perc, size=20,
-                        fill_color="grey", hover_fill_color="black",
+                        fill_color="grey", hover_fill_color="#ed071e",
                         fill_alpha=0.05, hover_alpha=0.3,
                         line_color=None, hover_line_color="white")
 
 
-        p.add_tools(HoverTool(tooltips=[("perc", "$y")], renderers=[pos_hov,neg_hov], mode='vline'))
+        p.add_tools(HoverTool(tooltips=None, renderers=[pos_hov,neg_hov], mode='vline'))
         html = file_html(p, CDN, "senti")
         Html_file= open("html_senti","w")
         Html_file.write(html)
@@ -291,9 +291,15 @@ if __name__ == "__main__":
 
         output_file("UA_polarity.html")
         p1 = figure(title="Polarity over time", x_axis_label='Date', y_axis_label='Polarity')
+        
         p1.background_fill_color = "#f2f1ef"
         p1.background_fill_alpha = 0.5
         p1.line(x=eachdate, y=avg_polarity, line_width=2, line_color="blue",legend="Polarity")
+        hov = p1.circle(eachdate, avg_polarity, size=20,
+                        fill_color="grey", hover_fill_color="blue",
+                        fill_alpha=0.05, hover_alpha=0.3,
+                        line_color=None, hover_line_color="white")
+        p1.add_tools(HoverTool(tooltips=None, renderers=[hov], mode='hline'))
         show(p1)
 
     ####################################################################################################################
